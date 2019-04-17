@@ -105,6 +105,25 @@ router.delete('/:id', async (req, res) => {
     return res.sendStatus(500);
   }
 });
+// Edit.
+router.put('/:id', async (req, res) => {
+  console.log("hello");
+  try {
+      //console.log(req.params.description);
+    let item = await Photo.findOne({
+    //  _id:req.params.description
+     _id:req.params.id
+    });
+    item.description=req.body.description,
+
+    await item.save();
+    res.send(item);
+  } catch (error) {
+    console.log("My Error " + error);
+    res.sendStatus(500);
+  }
+
+});
 
 
 module.exports = {

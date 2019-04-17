@@ -12,16 +12,35 @@
     <div class="delete">
       <button @click="deleteAccount(photo)" class="delete">Delete</button>
     </div>
+    <div class = "edit">
+    <input v-model="newPassword" placeholder="Enter New Password">
+    <button @click="editAccount" class="delete">Edit</button>
+    </div>
+    <escape-event @escape="escape"></escape-event>
+    <edit :show="show" @escape="escape" @uploadFinished="uploadFinished" />
+
   </div>
 </div>
 </template>
 <script>
 import moment from 'moment';
+import EscapeEvent from '@/components/EscapeEvent.vue'
+import Edit from '@/components/Edit.vue'
 
 export default {
   name: 'ImageGallery',
+  components: {
+    EscapeEvent,
+    Edit,
+  },
   props: {
     photos: Array
+  },
+  data() {
+    return {
+    newPassword: '',
+      show: false,
+    }
   },
   methods: {
     formatDate(date) {
@@ -32,12 +51,51 @@ export default {
     },
     async deleteAccount() {
       try {
+      console.log("imageGalelery Delete");
       console.log(this.photos);
         this.error = await this.$store.dispatch("deleteAccount",this.photos[0]._id);
       } catch (error) {
         console.log(error);
       }
     },
+    async editAccount() {
+      try {
+
+        this.error = await this.$store.dispatch("editAccount", {'photo': this.photos[0], 'newPassword': this.newPassword});
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    escape() {
+       this.show = false;
+     },
+     toggleUpload() {
+       this.show = true;
+     },
+     async uploadFinished() {
+       this.show = false;
+       try {
+         this.error = await this.$store.dispatch("getMyPhotos");
+       } catch (error) {
+         console.log(error);
+       }
+     },
+     async edit() {
+       try {
+       console.log(this.photos);
+         this.error = await this.$store.dispatch("editAccount", this.description,this.photos[0]._id);
+         if (!this.error) {
+           this.accountName='';
+           this.title = '';
+           this.description = '';
+           this.$emit('uploadFinished');
+         }
+       } catch (error) {
+         console.log(error);
+       }
+     }
+
+
 
   }
 

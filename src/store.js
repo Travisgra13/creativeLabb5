@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     user: null,
     photos: [],
-    photo:""
+    photo:"",
+    findItem: null,
 
   },
   mutations: {
@@ -101,10 +102,10 @@ export default new Vuex.Store({
         return "";
       }
     },
+
+
     async deleteAccount(context,id) {
-  
     try {
-      console.log(id);
       let response = axios.delete("/api/photos/" + id);
       console.log("first");
       context.commit('deletePhoto', id);
@@ -117,6 +118,8 @@ export default new Vuex.Store({
       console.log(error);
     }
   },
+
+
     async getAllPhotos(context) {
      try {
        let response = await axios.get("/api/photos/all");
@@ -126,5 +129,39 @@ export default new Vuex.Store({
        return "";
      }
    },
+
+   async editAccount(context, keys) {
+        try {
+          let photo = keys.photo;
+          let newPassword = keys.newPassword;
+          let response = await axios.put("/api/photos/" + photo._id, {
+           password:newPassword
+          });
+
+          let response2 = await axios.get("/api/photos/all");
+          context.commit('setPhotos', response2.data);
+          return true;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      // async editAccount(context,photo) {
+      //      try {
+      //        let response = await axios.put("/api/photos/" + photo._id, {
+      //          description:this.findItem.description,
+      //        });
+      //        this.findItem = null;
+      //
+      //        let response2 = await axios.get("/api/photos/all");
+      //        context.commit('setPhotos', response2.data);
+      //        return true;
+      //      } catch (error) {
+      //        console.log(error);
+      //      }
+      //    },
+
+
+
+
   },
 })
