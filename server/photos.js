@@ -53,20 +53,7 @@ router.post("/", auth.verifyToken, User.verify, upload.single('photo'), async (r
   }
 });
 // get my photos
-router.get("/", auth.verifyToken, User.verify, async (req, res) => {
-  // return photos
-  try {
-    let photos = await Photo.find({
-      user: req.user
-    }).sort({
-      created: -1
-    });
-    return res.send(photos);
-  } catch (error) {
-    console.log(error);
-    return res.sendStatus(500);
-  }
-});
+
 // get all photos
 router.get("/all", async (req, res) => {
   try {
@@ -109,12 +96,12 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   console.log("hello");
   try {
-      //console.log(req.params.description);
+      console.log(req.params);
+      console.log(req.body);
     let item = await Photo.findOne({
-    //  _id:req.params.description
-     _id:req.params.id
+      _id:req.params.id
     });
-    item.description=req.body.description,
+    item.description=req.body.password,
 
     await item.save();
     res.send(item);
@@ -125,6 +112,20 @@ router.put('/:id', async (req, res) => {
 
 });
 
+router.get("/", auth.verifyToken, User.verify, async (req, res) => {
+  // return photos
+  try {
+    let photos = await Photo.find({
+      user: req.user
+    }).sort({
+      created: -1
+    });
+    return res.send(photos);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 
 module.exports = {
   model: Photo,

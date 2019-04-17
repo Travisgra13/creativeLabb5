@@ -1,13 +1,13 @@
 <template>
 <div id="app">
   <div class="pure-menu">
-    <span class="pure-menu-heading">Photo Bomb</span>
+    <span class="pure-menu-heading">Family Password App</span>
     <ul class="pure-menu-list">
       <li class="pure-menu-item">
-        <router-link to="/" class="pure-menu-link">Home</router-link>
+        <router-link to="/" class="pure-menu-link">Go To Full List of Passwords</router-link>
       </li>
       <li class="pure-menu-item">
-        <router-link to="/mypage" class="pure-menu-link">My Page</router-link>
+        <router-link to="/mypage" class="pure-menu-link">Add Account Page</router-link>
       </li>
     </ul>
   </div>
@@ -35,14 +35,14 @@
   /* display: inline-block; */
   /* Or set the width explicitly: */
   text-align: left;
-  background: #000;
+  background: rgb(49, 129, 56);
 }
 
 .pure-menu-heading {
   color: #fff;
   font-size: 1.2em;
   padding: 20px 20px;
-  background-color: #F2385A;
+  background-color: rgb(179, 22, 185);
   margin-bottom: 10px;
 }
 
@@ -58,7 +58,7 @@
 
 .pure-menu-link.router-link-exact-active {
   background: #fff;
-  color: #F2385A;
+  color: rgb(115, 121, 113);
 }
 
 .content {

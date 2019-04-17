@@ -3,7 +3,7 @@
 </template>
 <script>
 import ImageGallery from '@/components/ImageGallery.vue'
-console.log(ImageGallery);
+console.log("in single Page");
 export default {
   name:'SinglePage',
   components: {

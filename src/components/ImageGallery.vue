@@ -14,7 +14,7 @@
     </div>
     <div class = "edit">
     <input v-model="newPassword" placeholder="Enter New Password">
-    <button @click="editAccount" class="delete">Edit</button>
+    <button @click="editAccount(photo)" class="delete">Edit</button>
     </div>
     <escape-event @escape="escape"></escape-event>
     <edit :show="show" @escape="escape" @uploadFinished="uploadFinished" />
@@ -39,6 +39,7 @@ export default {
   data() {
     return {
     newPassword: '',
+    id:'',
       show: false,
     }
   },
@@ -49,19 +50,21 @@ export default {
       else
         return moment(date).format('d MMMM YYYY');
     },
-    async deleteAccount() {
+    async deleteAccount(photo) {
       try {
       console.log("imageGalelery Delete");
       console.log(this.photos);
-        this.error = await this.$store.dispatch("deleteAccount",this.photos[0]._id);
+        this.error = await this.$store.dispatch("deleteAccount",photo._id);
       } catch (error) {
         console.log(error);
       }
     },
-    async editAccount() {
+    async editAccount(photo) {
       try {
+        console.log('This photo is ');
+        console.log(photo);
 
-        this.error = await this.$store.dispatch("editAccount", {'photo': this.photos[0], 'newPassword': this.newPassword});
+        this.error = await this.$store.dispatch("editAccount", {'photo': photo, 'newPassword': this.newPassword});
       } catch (error) {
         console.log(error);
       }
