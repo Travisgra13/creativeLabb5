@@ -14,7 +14,7 @@
   <div class="content">
     <router-view />
   </div>
-  <div class="footer">GitHub: <strong><a href="https://github.com/BYU-CS-260-Winter-2019/lab-5-romer8">GitHub</a></strong>.</div>
+  <div class="footer">GitHub: <strong><a href="https://github.com/Travisgra13/creativeLabb5.git">Link</a></strong>.</div>
 </div>
 
 </template>
